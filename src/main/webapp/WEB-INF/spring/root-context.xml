@@ -4,5 +4,33 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	
+	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	    <property name="driverClassName" value="org.postgresql.Driver"></property>
+	    <property name="url" value="jdbc:postgresql://localhost:5432/postgres"></property>
+	    <property name="username" value="postgres"></property>
+	    <property name="password" value="1234"></property>
+	</bean>
+	
+	<!-- (유영) 콘솔에 쿼리 찍기. log4j.xml과 같이 수정. -->
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceSpied" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL         :  "/>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- (유영) DAO와 mapper 연결 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceSpied" />
+		<!-- classpath: -> src/main/resources 위치를 찾는다. -->
+		<property name="mapperLocations" value="classpath:mapper/**/*_SQL.xml"/>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+					
 </beans>
