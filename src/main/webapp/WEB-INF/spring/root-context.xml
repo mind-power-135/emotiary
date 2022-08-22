@@ -7,9 +7,9 @@
 	
 	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 	    <property name="driverClassName" value="org.postgresql.Driver"></property>
-	    <property name="url" value="jdbc:postgresql://localhost:5432/postgres"></property>
-	    <property name="username" value="postgres"></property>
-	    <property name="password" value="1234"></property>
+	    <property name="url" value="jdbc:postgresql://emotiary.cxf27oad7ttf.ap-northeast-2.rds.amazonaws.com:5432/emotiary"></property>
+	    <property name="username" value="mindpower"></property>
+	    <property name="password" value="powermind4pow135"></property>
 	</bean>
 	
 	<!-- (유영) 콘솔에 쿼리 찍기. log4j.xml과 같이 수정. -->
