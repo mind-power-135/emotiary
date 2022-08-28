@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,44 +79,22 @@ public class UserController {
 	
 	
 	// 일반 로그인
-	// @ResponseBody // 필요한가?
 	@PostMapping("/loginCheck")
-	public ModelAndView login(@RequestBody Map<String, Object> paramMap, HttpServletRequest request) throws Exception {
+	public String login(@RequestBody Map<String, Object> paramMap, HttpServletRequest request) throws Exception {
 	 
 		String pw = (String)paramMap.get("pw");
 		paramMap.put("salt", pw);
 		
-		/*
 		Map<String, Object> userMap = userService.loginCheck(paramMap);
 		HttpSession session = request.getSession();
 		if (userMap != null) {
 			session.setAttribute("userMap",userMap);
-			return "/main"; // 페이지 이동이 왜 안 되지? setViewName 도 안 먹고 이것도 안 먹네. 여기선 post인데 이동하는 page들은 get이라 그런가? 일반회원가입 post에서 return "/main" 안 먹히는데 get에서 /main하면 먹힘. getMapping("/login")을 또 하면 500에러 나는데... 다 post로 바꿔도 똑같을 텐데.. 화면 보여지는 부분은 get, 데이터 전달되는 부분은 post로 해서 post가 get으로 가게 어떻게 해야 하지?
+			return "Login Success!";
 		} else {
 			session.setAttribute("userMap",null);
-			return "/register";
+			return "Login Failure";
 		}
-		*/
 		
-		ModelAndView mv = new ModelAndView();
-		Map<String, Object> userMap = userService.loginCheck(paramMap);
-		mv.addObject("userMap",userMap);
-		
-		// 로그인 성공
-		if (userMap != null) {
-			//mv.setView(new RedirectView("/emotiary/main"));
-			//mv.setViewName("main");
-			mv.setViewName("/main");
-			//mv.setViewName("redirect:/main");
-		} else { // 로그인 실패
-			mv.addObject("message", "로그인 실패");
-			mv.setViewName("/register");
-			//mv.setViewName("register");
-			//mv.setView(new RedirectView("/register"));
-			//mv.setViewName("redirect:/register");
-		}
-	 	return mv;
-	 	
 	}
 	
 	// 카카오 로그인
@@ -123,5 +102,10 @@ public class UserController {
 	// 이메일 로그인
 	
 	// 로그아웃
+	@PostMapping("/logout")
+	public String logout(HttpSession session) throws Exception {
+		session.invalidate();
+		return "Logout Success!";
+	}
 
 }
