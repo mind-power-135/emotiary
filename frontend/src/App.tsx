@@ -1,9 +1,11 @@
-import './App.css';
+import './App.css'
+import GlobalStyles from "./GlobalStyle"
 
 function App() {
   return (
     <div className='App'>
-      <header className='App-header'>hello</header>
+        {/*전역 스타일*/}
+        <GlobalStyles />
     </div>
   );
 }
