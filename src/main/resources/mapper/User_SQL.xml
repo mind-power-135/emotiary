@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mindpower.emotiary.user.UserDao">
+
+	<resultMap id="userVo" type="java.util.Map">
+		<result property="id" column="ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="email" column="EMAIL" />
+		<result property="pw" column="PW" />
+		<result property="birthDate" column="BIRTH_DATE" />
+		<result property="salt" column="SALT" />
+	</resultMap>
+	
+	<select id="selectUsersList" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
+	/* User_SQL.selectUsersList */
+	SELECT *
+	FROM public.users
+	</select>
+	
+	<select id="insertUser" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
+	/* User_SQL.insertUser */
+	INSERT INTO public.users (
+	ID, USER_NAME, EMAIL, PW, BIRTH_DATE, SALT
+	) VALUES (
+	<![CDATA[#{id}::numeric,]]>
+	<![CDATA[#{userName},]]>
+	<![CDATA[#{email},]]>
+	<![CDATA[#{pw},]]>
+	<![CDATA[#{birthDate},]]>
+	<![CDATA[#{salt}]]>
+	)
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+	/* User_SQL."idCheck" */
+	SELECT COUNT(*)
+	FROM public.users
+	WHERE ID = 
+	<![CDATA[#{id}::numeric]]>
+	</select>
+	
+	<select id="loginCheck" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
+	/* User_SQL.loginCheck */
+	SELECT *
+	FROM public.users
+	WHERE ID = 
+	<![CDATA[#{id}::numeric]]>
+	AND SALT LIKE
+	<![CDATA[#{pw}]]> || '%'
+	</select>
+
+
+</mapper>

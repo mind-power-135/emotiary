@@ -16,7 +16,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceSpied" />
 		<!-- classpath: -> src/main/resources 위치를 찾는다. -->
-		<property name="mapperLocations" value="classpath:mapper/**/*_SQL.xml"/>
+		<property name="mapperLocations" value="classpath*:mapper/**/*_SQL.xml"/>
 	</bean>
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
