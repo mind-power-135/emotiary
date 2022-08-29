@@ -199,6 +199,14 @@
 		    <scope>runtime</scope>
 		</dependency>
 		
+		<!-- (유영) 카카오 REST API -->
+		<!-- Jackson -->
+		<dependency> 
+			<groupId>org.codehaus.jackson</groupId> 
+			<artifactId>jackson-mapper-asl</artifactId> 
+			<version>1.9.13</version> 
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>
