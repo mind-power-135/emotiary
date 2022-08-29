@@ -1,5 +1,7 @@
 package com.mindpower.emotiary.user;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,39 +9,45 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.mindpower.emotiary.common.HttpConnection;
+import com.mindpower.emotiary.common.KakaoLoginOutput;
 import com.mindpower.emotiary.common.SHA_256;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@RestController // @ResponseBody ¾È ½áµµ µÊ
+@RestController // @ResponseBody ì•ˆ ì¨ë„ ë¨
 //@Controller
 public class UserController {
 	
 	@Autowired
 	UserService userService;
 	
-	// È¸¿ø°¡ÀÔ ÆäÀÌÁö
+	// íšŒì›ê°€ì… í˜ì´ì§€
 	// @GetMapping("/register")
 	@RequestMapping(value = "/register", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView register() throws Exception {
 		return new ModelAndView("/register");
 	}
 	
-	// ÀÏ¹İ È¸¿ø°¡ÀÔ
+	// ì¼ë°˜ íšŒì›ê°€ì…
 	@PostMapping("/addUser")
 	public String addUser(@RequestBody Map<String, Object> paramMap) throws Exception {
 		
@@ -54,7 +62,7 @@ public class UserController {
        
 	}
 	
-	// ¾ÆÀÌµğ Áßº¹Ã¼Å©
+	// ì•„ì´ë”” ì¤‘ë³µì²´í¬
 	@PostMapping("/idCheck")
 	public int idCheck(@RequestBody String account) throws Exception {
 		int num = userService.idCheck(account);
@@ -66,11 +74,11 @@ public class UserController {
 	}
 	
 	
-	// Ä«Ä«¿À È¸¿ø°¡ÀÔ
+	// ì¹´ì¹´ì˜¤ íšŒì›ê°€ì…
 	
-	// ÀÌ¸ŞÀÏ È¸¿ø°¡ÀÔ
+	// ì´ë©”ì¼ íšŒì›ê°€ì…
 	
-	// ·Î±×ÀÎ ÆäÀÌÁö
+	// ë¡œê·¸ì¸ í˜ì´ì§€
 	//@GetMapping("/login")
 	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView login() throws Exception {
@@ -78,7 +86,7 @@ public class UserController {
 	}
 	
 	
-	// ÀÏ¹İ ·Î±×ÀÎ
+	// ì¼ë°˜ ë¡œê·¸ì¸
 	@PostMapping("/loginCheck")
 	public String login(@RequestBody Map<String, Object> paramMap, HttpServletRequest request) throws Exception {
 	 
@@ -97,11 +105,59 @@ public class UserController {
 		
 	}
 	
-	// Ä«Ä«¿À ·Î±×ÀÎ
+	// ì¹´ì¹´ì˜¤ ë¡œê·¸ì¸
+	@GetMapping("/kakaoLogin")
+	public String kakao() {
+		StringBuffer loginUrl = new StringBuffer();
+		loginUrl.append("https://kauth.kakao.com/oauth/authorize?client_id=");
+		loginUrl.append("<1aecad2ec9281b4fa38d54505765097b>"); //ì¹´ì¹´ì˜¤ ì•±ì— ìˆëŠ” REST KEY
+		loginUrl.append("&redirect_uri=");
+		loginUrl.append("http://localhost:8080/EMOTIARY/kakaoLoginSuccess"); //ì¹´ì¹´ì˜¤ ì•±ì— ë“±ë¡í•œ redirect URL
+		loginUrl.append("&response_type=code");
+		
+		return "redirect:"+loginUrl.toString();
+	}
 	
-	// ÀÌ¸ŞÀÏ ·Î±×ÀÎ
+	HttpConnection conn = HttpConnection.getInstance();
 	
-	// ·Î±×¾Æ¿ô
+	// ì¹´ì¹´ì˜¤ ë¡œê·¸ì¸ ì„±ê³µ
+	@GetMapping("/kakaoLoginSuccess")
+	public ModelAndView redirect(@RequestParam String code, HttpSession session) throws IOException {
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("grant_type", "=authorization_code");
+			map.put("client_id", "=<1aecad2ec9281b4fa38d54505765097b>"); //ì¹´ì¹´ì˜¤ ì•±ì— ìˆëŠ” REST KEY
+			map.put("redirect_uri", "=http://localhost:8080/EMOTIARY/kakaoLoginSuccess"); //ì¹´ì¹´ì˜¤ ì•±ì— ë“±ë¡í•œ redirect URL
+			map.put("code", "="+code);
+			
+			String out = conn.HttpPostConnection("https://kauth.kakao.com/oauth/token", map).toString();
+			
+			ObjectMapper mapper = new ObjectMapper();
+			KakaoLoginOutput output = mapper.readValue(out, KakaoLoginOutput.class);
+			
+			System.out.println(output);
+			session.setAttribute("access_token", output.getAccess_token());
+			
+			return new ModelAndView("/kakaoLoginSuccess");
+		}
+	
+	// ì¹´ì¹´ì˜¤ ë¡œê·¸ì•„ì›ƒ // /kakaoLogout
+	@RequestMapping(value="/kakaoLogout")
+	public String access(HttpSession session) throws IOException {
+		
+		String access_token = (String)session.getAttribute("access_token");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("Authorization", "Bearer "+ access_token);
+		
+		String result = conn.HttpPostConnection("https://kapi.kakao.com/v1/user/logout", map).toString();
+		System.out.println(result);
+		
+		return "redirect:/";
+	}
+	
+	// ì´ë©”ì¼ ë¡œê·¸ì¸
+	
+	// ë¡œê·¸ì•„ì›ƒ
 	@PostMapping("/logout")
 	public String logout(HttpSession session) throws Exception {
 		session.invalidate();
