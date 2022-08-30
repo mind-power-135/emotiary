@@ -73,9 +73,9 @@ function logout(){
 	</div>
 	<input type="button" id="login" value="로그인" onclick="javascript:login()"/>
 	<!-- <input type="button" id="login" value="카카오 로그인" onclick="javascript:kakaoLogin()"/> -->
-	<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=1aecad2ec9281b4fa38d54505765097b&redirect_uri=http://localhost:8080/EMOTIARY/kakaoLoginSuccess&response_type=code">카카오로그인</a>
+	<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=1aecad2ec9281b4fa38d54505765097b&redirect_uri=http://localhost:8080/emotiary/kakaoLoginSuccess&response_type=code">카카오로그인</a>
 	<input type="button" id="logout" value="로그아웃" onclick="javascript:logout()"/>
-	<a href="/kakaoLogout">카카오로그아웃</a>
+	<a href="/emotiary/kakaoLogout">카카오로그아웃</a>
 </div> <!-- /container -->
 </body>
 </html>

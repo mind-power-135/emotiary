@@ -78,10 +78,26 @@ public class UserController {
 	
 	// 이메일 회원가입
 	
+	
 	// 로그인 페이지
-	//@GetMapping("/login")
+	HttpConnection conn = HttpConnection.getInstance();
 	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView login() throws Exception {
+		
+		/*Map<String, String> map = new HashMap<String, String>();
+		map.put("grant_type", "=authorization_code");
+		map.put("client_id", "=<1aecad2ec9281b4fa38d54505765097b>"); //카카오 앱에 있는 REST KEY
+		map.put("redirect_uri", "=http://localhost:8080/emotiary/login"); //카카오 앱에 등록한 redirect URL
+		map.put("code", "="+code);
+		
+		String out = conn.HttpPostConnection("https://kauth.kakao.com/oauth/token", map).toString();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		KakaoLoginOutput output = mapper.readValue(out, KakaoLoginOutput.class);
+		
+		System.out.println(output);
+		session.setAttribute("access_token", output.getAccess_token());*/
+		
 		return new ModelAndView("/login");
 	}
 	
@@ -112,22 +128,20 @@ public class UserController {
 		loginUrl.append("https://kauth.kakao.com/oauth/authorize?client_id=");
 		loginUrl.append("<1aecad2ec9281b4fa38d54505765097b>"); //카카오 앱에 있는 REST KEY
 		loginUrl.append("&redirect_uri=");
-		loginUrl.append("http://localhost:8080/EMOTIARY/kakaoLoginSuccess"); //카카오 앱에 등록한 redirect URL
+		loginUrl.append("http://localhost:8080/emotiary/kakaoLoginSuccess"); //카카오 앱에 등록한 redirect URL
 		loginUrl.append("&response_type=code");
 		
 		return "redirect:"+loginUrl.toString();
 	}
 	
-	HttpConnection conn = HttpConnection.getInstance();
-	
 	// 카카오 로그인 성공
 	@GetMapping("/kakaoLoginSuccess")
-	public ModelAndView redirect(@RequestParam String code, HttpSession session) throws IOException {
+	public ModelAndView redirect(@RequestParam(value="code", required=false) String code, HttpSession session) throws IOException {
 			
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("grant_type", "=authorization_code");
 			map.put("client_id", "=<1aecad2ec9281b4fa38d54505765097b>"); //카카오 앱에 있는 REST KEY
-			map.put("redirect_uri", "=http://localhost:8080/EMOTIARY/kakaoLoginSuccess"); //카카오 앱에 등록한 redirect URL
+			map.put("redirect_uri", "=http://localhost:8080/emotiary/kakaoLoginSuccess"); //카카오 앱에 등록한 redirect URL
 			map.put("code", "="+code);
 			
 			String out = conn.HttpPostConnection("https://kauth.kakao.com/oauth/token", map).toString();
@@ -138,7 +152,7 @@ public class UserController {
 			System.out.println(output);
 			session.setAttribute("access_token", output.getAccess_token());
 			
-			return new ModelAndView("/kakaoLoginSuccess");
+			return new ModelAndView("/login");
 		}
 	
 	// 카카오 로그아웃 // /kakaoLogout
