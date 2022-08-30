@@ -1,11 +1,8 @@
-import './App.css'
-import GlobalStyles from "./GlobalStyle"
+import './App.css';
 
 function App() {
   return (
     <div className='App'>
-        {/*전역 스타일*/}
-        <GlobalStyles />
     </div>
   );
 }
