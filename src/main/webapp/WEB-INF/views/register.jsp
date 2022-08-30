@@ -13,7 +13,7 @@ $(document).ready(function(){
 function join(){
 	
 	const user ={
-		id: $("#id").val(),
+		email: $("#email").val(),
 		pw: $("#pw").val(),
 		userName: $("#name").val(),
 		email: $("#email").val()
@@ -50,20 +50,20 @@ function idCheck(){
 	
 	//console.log(JSON.stringify({"id":$('#id').val()}));
 	
-	var id = $("#id").val();
+	var email = $("#email").val();
 	
 	$.ajax({
 	  type: "POST",
 	  url: "/emotiary/idCheck",
 	  dataType: 'text',
-	  data : id,
+	  data : email,
 	  contentType : "text/plain; charset=UTF-8",
 	  success : function(data){
 			if(data == 1){
-				alert("이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.");
+				alert("이미 존재하는 이메일입니다. 다른 아이디를 입력해주세요.");
 			}else if(data == 0){
 				$("#idChk").attr("value", "Y");
-				alert("사용 가능한 아이디입니다.");
+				alert("사용 가능한 이메일입니다.");
 			}
 		},
 	  error :function(request,status,error){
@@ -78,7 +78,6 @@ function alertValue(data){
 }
 
 function clean(){
-	$("#id").empty();
 	$("#firstPw").empty();
 	$("#pw").empty();
 	$("#name").empty();
@@ -90,17 +89,15 @@ function clean(){
 <body>
 <div class="container">
 	<div class="form-group">
-      <label for="id">ID</label>
-      <input type="text" id="id" name="id" placeholder="ID를 입력하세요">
-      <input type="button" id="idChk" value="아이디 중복확인" onclick="javascript:idCheck()"/><br/>
+      <label for="id">ID(Email)</label>
+      <input type="text" id="email" name="email" placeholder="ID로 사용할 이메일 주소를 입력하세요">
+      <input type="button" id="idChk" value="이메일 중복확인" onclick="javascript:idCheck()"/><br/>
       <label for="firstPw">PW</label>
       <input type="text" id="firstPw" name="firstPw" placeholder="암호를 입력하세요"><br/>
       <label for="pw">PW재확인</label>
       <input type="text" id="pw" name="pw" placeholder="암호를 다시 입력하세요"><br/>
       <label for="name">이름</label>
       <input type="text" id="name" name="name" placeholder="이름을 입력하세요"><br/>
-      <label for="email">이메일</label>
-      <input type="text" id="email" name="email" placeholder="이메일 주소를 입력하세요"><br/>
 	</div>
 	<input type="button" id="submit" value="등록" onclick="javascript:join()"/>
 </div> <!-- /container -->

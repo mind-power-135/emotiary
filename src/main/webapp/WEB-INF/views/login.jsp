@@ -9,18 +9,18 @@
 
 function login(){
 	
-	var id = $("#id").val();
+	var email = $("#email").val();
 	var pw = $("#pw").val();
 	
-	if (id == null) {
-		alert("id를 입력하세요.")
+	if (email == null) {
+		alert("email을 입력하세요.")
 	}
 	if (pw == null) {
 		alert("비밀번호를 입력하세요.")
 	}
 	
 	const user ={
-			id, pw
+			email, pw
 	}
 	
 	console.log(user);
@@ -43,13 +43,13 @@ function login(){
 
 function logout(){
 	
-	var id = $("#id").val();
+	var email = $("#email").val();
 	
 	$.ajax({
 		  type: "POST",
 		  url: "/emotiary/logout",
 		  dataType:'text',
-		  data : JSON.stringify(id),
+		  data : JSON.stringify(email),
 		  contentType : "application/json; charset=UTF-8",
 		  success : function(data) {
 			  alert(data); // Controller의 return
@@ -67,7 +67,7 @@ function logout(){
 <div class="container">
 	<div class="form-group">
       <label for="id">ID</label>
-      <input type="text" id="id" name="id" placeholder="ID를 입력하세요"><br/>
+      <input type="text" id="email" name="email" placeholder="Email을 입력하세요"><br/>
       <label for="pw">PW</label>
       <input type="text" id="pw" name="pw" placeholder="암호를 입력하세요"><br/>
 	</div>

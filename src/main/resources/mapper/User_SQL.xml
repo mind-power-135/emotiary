@@ -20,9 +20,8 @@
 	<select id="insertUser" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
 	/* User_SQL.insertUser */
 	INSERT INTO public.users (
-	ID, USER_NAME, EMAIL, PW, BIRTH_DATE, SALT
+	USER_NAME, EMAIL, PW, BIRTH_DATE, SALT
 	) VALUES (
-	<![CDATA[#{id}::numeric,]]>
 	<![CDATA[#{userName},]]>
 	<![CDATA[#{email},]]>
 	<![CDATA[#{pw},]]>
@@ -35,16 +34,16 @@
 	/* User_SQL."idCheck" */
 	SELECT COUNT(*)
 	FROM public.users
-	WHERE ID = 
-	<![CDATA[#{id}::numeric]]>
+	WHERE EMAIL = 
+	<![CDATA[#{email}]]>
 	</select>
 	
 	<select id="loginCheck" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
 	/* User_SQL.loginCheck */
 	SELECT *
 	FROM public.users
-	WHERE ID = 
-	<![CDATA[#{id}::numeric]]>
+	WHERE EMAIL = 
+	<![CDATA[#{email}]]>
 	AND SALT LIKE
 	<![CDATA[#{pw}]]> || '%'
 	</select>
