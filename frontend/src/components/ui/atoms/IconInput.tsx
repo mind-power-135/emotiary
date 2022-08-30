@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const PntDiv = styled.div`
   position: relative;
@@ -20,21 +20,21 @@ const Icon = styled.i`
 `;
 
 interface Props {
-    type: string;
-    name: string;
-    placeholder?: string;
-    children: React.ReactNode;
+  type: string;
+  name: string;
+  placeholder?: string;
+  children: React.ReactNode;
 }
 
 const IconInput: React.FC<Props> = (props) => {
-    const {type, name, placeholder, children} = props;
+  const { type, name, placeholder, children } = props;
 
-    return (
-        <PntDiv>
-            <InputBox type={type} name={name} placeholder={placeholder}/>
-            <Icon>{children}</Icon>
-        </PntDiv>
-    );
+  return (
+    <PntDiv>
+      <InputBox type={type} name={name} placeholder={placeholder} />
+      <Icon>{children}</Icon>
+    </PntDiv>
+  );
 };
 
 export default IconInput;
