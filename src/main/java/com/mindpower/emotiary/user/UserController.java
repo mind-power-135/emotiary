@@ -73,36 +73,16 @@ public class UserController {
 		}
 	}
 	
-	
-	// 카카오 회원가입
-	
-	// 이메일 회원가입
-	
-	
 	// 로그인 페이지
 	HttpConnection conn = HttpConnection.getInstance();
 	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView login() throws Exception {
 		
-		/*Map<String, String> map = new HashMap<String, String>();
-		map.put("grant_type", "=authorization_code");
-		map.put("client_id", "=<1aecad2ec9281b4fa38d54505765097b>"); //카카오 앱에 있는 REST KEY
-		map.put("redirect_uri", "=http://localhost:8080/emotiary/login"); //카카오 앱에 등록한 redirect URL
-		map.put("code", "="+code);
-		
-		String out = conn.HttpPostConnection("https://kauth.kakao.com/oauth/token", map).toString();
-		
-		ObjectMapper mapper = new ObjectMapper();
-		KakaoLoginOutput output = mapper.readValue(out, KakaoLoginOutput.class);
-		
-		System.out.println(output);
-		session.setAttribute("access_token", output.getAccess_token());*/
-		
 		return new ModelAndView("/login");
 	}
 	
 	
-	// 일반 로그인
+	// 일반(=이메일) 로그인
 	@PostMapping("/loginCheck")
 	public String login(@RequestBody Map<String, Object> paramMap, HttpServletRequest request) throws Exception {
 	 
