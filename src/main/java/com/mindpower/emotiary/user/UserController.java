@@ -126,7 +126,7 @@ public class UserController {
 	public String kakao() {
 		StringBuffer loginUrl = new StringBuffer();
 		loginUrl.append("https://kauth.kakao.com/oauth/authorize?client_id=");
-		loginUrl.append("<1aecad2ec9281b4fa38d54505765097b>"); //카카오 앱에 있는 REST KEY
+		loginUrl.append("1aecad2ec9281b4fa38d54505765097b"); //카카오 앱에 있는 REST KEY
 		loginUrl.append("&redirect_uri=");
 		loginUrl.append("http://localhost:8080/emotiary/kakaoLoginSuccess"); //카카오 앱에 등록한 redirect URL
 		loginUrl.append("&response_type=code");
@@ -140,7 +140,7 @@ public class UserController {
 			
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("grant_type", "=authorization_code");
-			map.put("client_id", "=<1aecad2ec9281b4fa38d54505765097b>"); //카카오 앱에 있는 REST KEY
+			map.put("client_id", "=1aecad2ec9281b4fa38d54505765097b"); //카카오 앱에 있는 REST KEY
 			map.put("redirect_uri", "=http://localhost:8080/emotiary/kakaoLoginSuccess"); //카카오 앱에 등록한 redirect URL
 			map.put("code", "="+code);
 			
@@ -166,7 +166,7 @@ public class UserController {
 		String result = conn.HttpPostConnection("https://kapi.kakao.com/v1/user/logout", map).toString();
 		System.out.println(result);
 		
-		return "redirect:/";
+		return "Kakao Logout Success!";
 	}
 	
 	// 이메일 로그인
