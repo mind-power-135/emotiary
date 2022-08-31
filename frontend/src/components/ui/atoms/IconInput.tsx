@@ -1,5 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+
+interface Props {
+  type: string;
+  name: string;
+  placeholder?: string;
+  bgColor?: string;
+  children: React.ReactNode;
+}
 
 const PntDiv = styled.div`
   position: relative;
@@ -10,6 +18,7 @@ const InputBox = styled.input`
   width: 15rem; height 2rem;
   color: #666666;
   padding-left: 3rem;
+  background-color: ${({ color }) => (color ? `#` + color : 'white')};
 `;
 
 const Icon = styled.i`
@@ -19,22 +28,15 @@ const Icon = styled.i`
   transform: translateY(-50%);
 `;
 
-interface Props {
-    type: string;
-    name: string;
-    placeholder?: string;
-    children: React.ReactNode;
-}
-
 const IconInput: React.FC<Props> = (props) => {
-    const {type, name, placeholder, children} = props;
+  const { type, name, placeholder, children, bgColor } = props;
 
-    return (
-        <PntDiv>
-            <InputBox type={type} name={name} placeholder={placeholder}/>
-            <Icon>{children}</Icon>
-        </PntDiv>
-    );
+  return (
+    <PntDiv>
+      <InputBox type={type} name={name} placeholder={placeholder} color={bgColor}/>
+      <Icon>{children}</Icon>
+    </PntDiv>
+  );
 };
 
 export default IconInput;

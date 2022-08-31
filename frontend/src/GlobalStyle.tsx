@@ -8,9 +8,8 @@ const GlobalStyle = createGlobalStyle`
   /* other styles */
   * {
     font-family: 'Noto Sans KR', sans-serif;
-    padding: 0;
   }
-  body{
+  html{
     font-size: 10px;
   }
   i> svg{
