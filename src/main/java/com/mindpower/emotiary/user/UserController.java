@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -28,7 +30,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.mindpower.emotiary.common.HttpConnection;
 import com.mindpower.emotiary.common.KakaoLoginOutput;
+import com.mindpower.emotiary.common.MailSendService;
 import com.mindpower.emotiary.common.SHA_256;
+import com.sun.mail.util.logging.MailHandler;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +43,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private MailSendService mailService;
 	
 	// 회원가입 페이지
 	// @GetMapping("/register")
@@ -61,6 +68,16 @@ public class UserController {
 		return "Join Success!";
        
 	}
+	
+	// 이메일 인증 (confirm email authKey) // emailVerify
+	@ResponseBody
+	@GetMapping("/emailVerify")
+	public String emailVerify(String email) {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		return mailService.joinEmail(email);
+	}
+	
 	
 	// 아이디 중복체크
 	@PostMapping("/idCheck")
@@ -148,8 +165,6 @@ public class UserController {
 		
 		return "Kakao Logout Success!";
 	}
-	
-	// 이메일 로그인
 	
 	// 로그아웃
 	@PostMapping("/logout")
