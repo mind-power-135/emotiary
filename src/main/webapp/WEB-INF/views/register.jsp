@@ -18,6 +18,7 @@ function join(){
 	var firstPw = $("#firstPw").val();
 	var pw = $("#pw").val();
 	var userName = $("#name").val();
+	var certificationNumber = $(".mail-check-input").val();
 	
 	if(email==""){
 		alert("Email 주소를 입력해주세요.");
@@ -27,6 +28,8 @@ function join(){
 		alert("패스워드 확인을 입력해주세요.");
 	} if(userName==""){
 		alert("이름을 입력해주세요.");
+	} if(certificationNumber==""){
+		alert("인증번호를 입력해주세요.")
 	}
 	
 	const user ={
@@ -38,7 +41,7 @@ function join(){
 	console.log(JSON.stringify(user));
 	
 	if(firstPw!=""&pw!=""){
-		if(firstPw==pw && email!="" && userName!="") {
+		if(firstPw==pw && email!="" && userName!="" && certificationNumber!="") {
 			
 			if(firstPw.length < 8 || firstPw.length > 15){
 			  alert("비밀번호는 8자리 이상 15자리 이내로 입력해주세요.");
