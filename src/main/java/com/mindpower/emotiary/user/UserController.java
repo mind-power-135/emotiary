@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,6 +38,7 @@ import com.sun.mail.util.logging.MailHandler;
 
 import lombok.RequiredArgsConstructor;
 
+@Controller
 @RequiredArgsConstructor
 @RestController // @ResponseBody 안 써도 됨
 //@Controller
@@ -118,6 +121,13 @@ public class UserController {
 		
 	}
 	
+	// 로그아웃
+	@PostMapping("/logout")
+	public String logout(HttpSession session) throws Exception {
+		session.invalidate();
+		return "Logout Success!";
+	}
+	
 	// 카카오 로그인
 	@GetMapping("/kakaoLogin")
 	public String kakao() {
@@ -135,24 +145,24 @@ public class UserController {
 	@GetMapping("/kakaoLoginSuccess")
 	public ModelAndView redirect(@RequestParam(value="code", required=false) String code, HttpSession session) throws IOException {
 			
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("grant_type", "=authorization_code");
-			map.put("client_id", "=1aecad2ec9281b4fa38d54505765097b"); //카카오 앱에 있는 REST KEY
-			map.put("redirect_uri", "=http://localhost:8080/emotiary/kakaoLoginSuccess"); //카카오 앱에 등록한 redirect URL
-			map.put("code", "="+code);
-			
-			String out = conn.HttpPostConnection("https://kauth.kakao.com/oauth/token", map).toString();
-			
-			ObjectMapper mapper = new ObjectMapper();
-			KakaoLoginOutput output = mapper.readValue(out, KakaoLoginOutput.class);
-			
-			System.out.println(output);
-			session.setAttribute("access_token", output.getAccess_token());
-			
-			return new ModelAndView("/login");
-		}
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("grant_type", "=authorization_code");
+		map.put("client_id", "=1aecad2ec9281b4fa38d54505765097b"); //카카오 앱에 있는 REST KEY
+		map.put("redirect_uri", "=http://localhost:8080/emotiary/kakaoLoginSuccess"); //카카오 앱에 등록한 redirect URL
+		map.put("code", "="+code);
+		
+		String out = conn.HttpPostConnection("https://kauth.kakao.com/oauth/token", map).toString();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		KakaoLoginOutput output = mapper.readValue(out, KakaoLoginOutput.class);
+		
+		System.out.println(output);
+		session.setAttribute("access_token", output.getAccess_token());
+		
+		return new ModelAndView("/login");
+	}
 	
-	// 카카오 로그아웃 // /kakaoLogout
+	// 카카오 로그아웃
 	@RequestMapping(value="/kakaoLogout")
 	public String access(HttpSession session) throws IOException {
 		
@@ -166,11 +176,37 @@ public class UserController {
 		return "Kakao Logout Success!";
 	}
 	
-	// 로그아웃
-	@PostMapping("/logout")
-	public String logout(HttpSession session) throws Exception {
-		session.invalidate();
-		return "Logout Success!";
+	// 비밀번호 찾기
+	@PostMapping("/findPassword")
+	public String findPassword(@RequestBody Map<String, Object> paramMap) {
+		
+		//임시 비밀번호 생성(UUID이용)
+		String tempPw = UUID.randomUUID().toString().replace("-", ""); //-를 제거
+		tempPw = tempPw.substring(0,10); //tempPw를 앞에서부터 10자리 잘라줌
+		
+		String setFrom = "powermind4pow@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력 
+		String toMail = (String)paramMap.get("emailForPw");
+		String title = "EMOTIARY 임시 비밀번호입니다."; // 이메일 제목 
+		String content = 
+				"안녕하세요." + 	//html 형식으로 작성 
+                "<br><br>" + 
+			    "임시 비밀번호는 " + tempPw + "입니다." + 
+			    "<br>" + 
+			    "해당 임시 비밀번호로 로그인하신 뒤 비밀번호를 변경해주세요."; //이메일 내용 삽입
+		mailService.mailSend(setFrom, toMail, title, content);
+		
+		SHA_256 sha_256 = new SHA_256();
+		String salt = sha_256.encrypt((String)tempPw);
+		paramMap.put("pw", tempPw);
+		paramMap.put("salt", tempPw+salt);
+		
+		try {
+			userService.modifyPassword(paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "Temp Password Submit!";
 	}
-
+	
 }

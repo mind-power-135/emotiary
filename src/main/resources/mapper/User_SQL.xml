@@ -47,6 +47,19 @@
 	AND SALT LIKE
 	<![CDATA[#{pw}]]> || '%'
 	</select>
+	
+	<select id="updatePassword" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
+	/* User_SQL.updatePassword */
+	UPDATE public.users
+	SET (PW, SALT) = (
+	<![CDATA[#{pw},]]>
+	<![CDATA[#{salt}]]>
+	)
+	WHERE EMAIL =
+	<![CDATA[#{emailForPw}]]>
+	AND USER_NAME =
+	<![CDATA[#{nameForPw}]]>
+	</select>
 
 
 </mapper>
