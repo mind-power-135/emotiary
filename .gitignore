@@ -18,6 +18,10 @@ buildNumber.properties
 # Eclipse Core
 .project
 
+# ignore properties file
+db.properties
+googleSmtp.properties
+
 # intellij
 .idea
 

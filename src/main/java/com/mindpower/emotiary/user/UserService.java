@@ -12,24 +12,29 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	// È¸¿ø ¸ñ·Ï
+	// íšŒì› ëª©ë¡
 	public List<Map<String, Object>> getUsersList(Map<String, Object> vo) throws Exception {
 		return userDao.selectUsersList(vo);
 	}
 	
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	public Map<String, Object> addUser(Map<String, Object> vo) throws Exception {
 		return userDao.insertUser(vo);
 	}
 	
-	// ¾ÆÀÌµğ Áßº¹Ã¼Å©
+	// íšŒì›ê°€ì…
 	public int idCheck(String account) throws Exception {
 		return userDao.idCheck(account);
 	}
 	
-	// ·Î±×ÀÎ 
+	// ë¡œê·¸ì¸ 
 	public Map<String, Object> loginCheck(Map<String, Object> vo) throws Exception {
 		return userDao.loginCheck(vo);
+	}
+	
+	// ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
+	public Map<String, Object> modifyPassword(Map<String, Object> vo) throws Exception {
+		return userDao.updatePassword(vo);
 	}
 	
 }
