@@ -15,10 +15,12 @@ const PntDiv = styled.div`
 `;
 
 const InputBox = styled.input`
-  width: 15rem; height 2rem;
+  width: 30rem; height 4rem;
   color: #666666;
   padding-left: 3rem;
   background-color: ${({ color }) => (color ? `#` + color : 'white')};
+  border: 1px solid #6D6A6A;
+  border-radius: 10px;
 `;
 
 const Icon = styled.i`
