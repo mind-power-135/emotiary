@@ -12,6 +12,9 @@ const GlobalStyle = createGlobalStyle`
   html{
     font-size: 10px;
   }
+  body{
+    font-size: 16px;
+  }
   i> svg{
     width: 2rem; height: 2rem;
   }
