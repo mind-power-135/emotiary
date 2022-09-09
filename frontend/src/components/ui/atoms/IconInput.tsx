@@ -12,10 +12,11 @@ interface Props {
 const PntDiv = styled.div`
   position: relative;
   display: inline-block;
+  width: fit-content;
 `;
 
 const InputBox = styled.input`
-  width: 30rem; height 4rem;
+  width: 38rem; height 4rem;
   color: #666666;
   padding-left: 3rem;
   background-color: ${({ color }) => (color ? `#` + color : 'white')};
