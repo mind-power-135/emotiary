@@ -17,7 +17,7 @@ const LoginPage: React.FC<any> = () => {
         display: 'flex',
         flexDirection: 'column',
         width: 'fit-content',
-        gap: '120px',
+        gap: '12rem',
         margin: '0 auto',
       }}>
         <Logo />
@@ -25,7 +25,7 @@ const LoginPage: React.FC<any> = () => {
           display: 'flex',
           flexDirection: 'column',
           width: 'fit-content',
-          gap: '50px',
+          gap: '5rem',
         }}>
           <div style={{
             display: 'flex',
