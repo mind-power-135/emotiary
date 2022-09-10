@@ -1,9 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { useEffect, useState } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
 const CardDiv = styled.div<{ color?: string }>`
-  position: relative;
   width: 347px;
   height: 450px;
   border-radius: 10px;
@@ -13,59 +11,59 @@ const CardDiv = styled.div<{ color?: string }>`
 `;
 
 const CardTitle = styled.div`
-font-size: 25px;
-padding-top: 4rem;
-padding-bottom: 1.4rem;
+  font-size: 25px;
+  padding-top: 4rem;
+  padding-bottom: 1.4rem;
+  font-weight: bold;
 `;
 
 const CardSummary = styled.div`
-font-size: 16px;
-padding-inline: 3em 3em;  
-line-height: 3rem;
+  font-size: 16px;
+  padding-inline: 3em 3em;  
+  line-height: 3rem;
 `;
 
 const CardImg = styled.div`
-width: auto;
-height: auto;
-font-size: 16px;
-padding-top: 3.6rem;
+  width: auto;
+  height: auto;
+  font-size: 16px;
+  padding-top: 3.6rem;
 `;
 
 const CardTag = styled.div`
-font-size: 16px;
-padding-top: 2rem;
+  font-size: 16px;
+  padding-top: 2rem;
 `;
 
 interface Props {
-    cardtitle: string;
-    cardtag: string;
-    cardsummary: string;
-    children: React.ReactNode;
-    cardimg: string;
+  cardtitle: string;
+  cardtag: string;
+  cardsummary: string;
+  children: React.ReactNode;
+  cardimg: string;
 }
 
 const Card: React.FC<Props> = (props) => {
-  const {cardtitle,cardsummary,cardtag,cardimg} = props;
+  const { cardtitle, cardsummary, cardtag, cardimg } = props;
 
-    return (
-        <CardDiv>
-          <CardTitle>{cardtitle}</CardTitle>
-          <br/>
-          <CardSummary>{cardsummary}</CardSummary>
-          <CardImg>{<img src={cardimg}/>}</CardImg>
-          <CardTag>{cardtag}</CardTag>
-        </CardDiv>
-    );
+  return (
+    <CardDiv>
+      <CardTitle>{cardtitle}</CardTitle>
+      <br />
+      <CardSummary>{cardsummary}</CardSummary>
+      <CardImg>{<img src={cardimg} />}</CardImg>
+      <CardTag>{cardtag}</CardTag>
+    </CardDiv>
+  );
 
-    
+
 };
 
 Card.defaultProps = {
-  cardtitle:'아 진짜 동기 화나...',
-  cardsummary:'기러기토마토스위스인도인별똥별 기러기토마토스위스인도인별...',
-  cardtag:'#슬픔',
-  cardimg: 'https://imgur.com/3M8MDMi.png'
-}
+  cardtitle: '아 진짜 동기 화나...',
+  cardsummary: '기러기토마토스위스인도인별똥별 기러기토마토스위스인도인별...',
+  cardtag: '#슬픔',
+  cardimg: 'https://imgur.com/3M8MDMi.png',
+};
 
 export default Card;
-
