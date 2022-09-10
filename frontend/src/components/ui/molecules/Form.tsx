@@ -5,13 +5,11 @@ interface Props {
   children?: React.ReactNode;
 }
 
-const StyleForm = styled.button`
+const StyleForm = styled.form`
   display: flex;
   flex-direction: column;
   width: fit-content;
   gap: 5rem;
-  border: 0;
-  background-color: transparent;
 `;
 
 const Button: React.FC<Props> = (props: Props) => {
