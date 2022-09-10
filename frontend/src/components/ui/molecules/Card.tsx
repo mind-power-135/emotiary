@@ -36,23 +36,23 @@ const CardTag = styled.div`
 `;
 
 interface Props {
-  cardtitle: string;
-  cardtag: string;
-  cardsummary: string;
+  cardTitle: string;
+  cardTag: string;
+  cardSummary: string;
   children: React.ReactNode;
-  cardimg: string;
+  cardImg: string;
 }
 
 const Card: React.FC<Props> = (props) => {
-  const { cardtitle, cardsummary, cardtag, cardimg } = props;
+  const { cardTitle, cardSummary, cardTag, cardImg } = props;
 
   return (
     <CardDiv>
-      <CardTitle>{cardtitle}</CardTitle>
+      <CardTitle>{cardTitle}</CardTitle>
       <br />
-      <CardSummary>{cardsummary}</CardSummary>
-      <CardImg>{<img src={cardimg} />}</CardImg>
-      <CardTag>{cardtag}</CardTag>
+      <CardSummary>{cardSummary}</CardSummary>
+      <CardImg>{<img src={cardImg} />}</CardImg>
+      <CardTag>{cardTag}</CardTag>
     </CardDiv>
   );
 
@@ -60,10 +60,10 @@ const Card: React.FC<Props> = (props) => {
 };
 
 Card.defaultProps = {
-  cardtitle: '아 진짜 동기 화나...',
-  cardsummary: '기러기토마토스위스인도인별똥별 기러기토마토스위스인도인별...',
-  cardtag: '#슬픔',
-  cardimg: 'https://imgur.com/3M8MDMi.png',
+  cardTitle: '아 진짜 동기 화나...',
+  cardSummary: '기러기토마토스위스인도인별똥별 기러기토마토스위스인도인별...',
+  cardTag: '#슬픔',
+  cardImg: 'https://imgur.com/3M8MDMi.png',
 };
 
 export default Card;
