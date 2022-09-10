@@ -24,7 +24,7 @@ const VerticalHr = styled(StyleHr)`
   width: 0.2vw;
 `;
 
-const Button = () => {
+const Nav = () => {
   return (
     <StyleNav>
       <Logo />
@@ -44,4 +44,4 @@ const Button = () => {
   );
 };
 
-export default Button;
+export default Nav;
