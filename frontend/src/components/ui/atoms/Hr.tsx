@@ -6,8 +6,8 @@ interface Props {
   bgColor?: string;
 }
 
-const StyleHr = styled.hr<{ height?: number; bgColor?: string }>`
-  height: ${({ height }) => (height ? height + 'px' : '2px')};
+export const StyleHr = styled.hr<{ height?: number; bgColor?: string }>`
+  height: ${({ height }) => (height ? height + 'vh' : 'vh')};
   border: 0;
   background-color: ${({ bgColor }) => (bgColor ? bgColor : '#000000')};
 `;
