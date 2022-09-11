@@ -17,7 +17,7 @@ const Icon: React.FC<Props> = props => {
 
   return (
     <IconImg
-      onClick={(e: React.MouseEvent<HTMLElement>) => setIconClickEvent(e)}
+      onClick={(e: React.MouseEvent<HTMLElement>) => setIconClickEvent?.(e)}
     >
       {children}
     </IconImg>
