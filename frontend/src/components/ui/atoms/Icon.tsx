@@ -9,7 +9,7 @@ const IconImg = styled.i`
 
 interface Props {
   children: React.ReactNode;
-  setIconClickEvent: (e: React.MouseEvent<HTMLElement>) => void;
+  setIconClickEvent?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const Icon: React.FC<Props> = props => {
