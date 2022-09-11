@@ -10,8 +10,9 @@ const StyleForm = styled.form<{ flexDirection?: string }>`
   display: flex;
   flex-direction: ${({ flexDirection }) =>
     flexDirection ? flexDirection : 'column'};
-  width: fit-content;
   gap: 5rem;
+  align-items: center;
+  width: fit-content;
 `;
 
 const Button: React.FC<Props> = (props: Props) => {
