@@ -15,7 +15,6 @@ const StyleButton = styled.button<{ theme: string }>`
   color: ${({ theme }) => (theme == 'default' ? '#999999' : '#ffffff')};
   background-color: ${({ theme }) =>
     theme == 'default' ? '#ffffff' : '#999999'};
-  font-size: 1rem;
   text-align: center;
   border: 1px solid #999999;
   border-radius: 10px;
