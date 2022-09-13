@@ -82,10 +82,21 @@ public class UserController {
 	}
 	
 	
-	// 아이디 중복체크
+	// 아이디(이메일) 중복체크
 	@PostMapping("/idCheck")
 	public int idCheck(@RequestBody String account) throws Exception {
 		int num = userService.idCheck(account);
+		if(num == 1) {
+			return num;
+		} else {
+			return num;
+		}
+	}
+	
+	// 이름 존재여부 체크
+	@PostMapping("/nameCheck")
+	public int nameCheck(@RequestBody String account) throws Exception {
+		int num = userService.nameCheck(account);
 		if(num == 1) {
 			return num;
 		} else {
@@ -201,7 +212,7 @@ public class UserController {
 		paramMap.put("salt", tempPw+salt);
 		
 		try {
-			userService.modifyPassword(paramMap);
+		userService.modifyPassword(paramMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

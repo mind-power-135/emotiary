@@ -28,6 +28,11 @@ public class UserDao extends CommonDao {
 		return sqlSession.selectOne(UserDao.class.getName() + ".idCheck", account);
 	}
 	
+	// 이름 존재여부 체크
+	public int nameCheck(String account) throws SQLException {
+		return sqlSession.selectOne(UserDao.class.getName() + ".nameCheck", account);
+	}
+	
 	// 로그인
 	public Map<String, Object> loginCheck(Map<String, Object> paramMap) throws SQLException {
 		return sqlSession.selectOne(UserDao.class.getName() + ".loginCheck", paramMap);

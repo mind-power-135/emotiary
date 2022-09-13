@@ -9,6 +9,9 @@
 		<result property="pw" column="PW" />
 		<result property="birthDate" column="BIRTH_DATE" />
 		<result property="salt" column="SALT" />
+		<result property="createdAt" column="CREATED_AT" />
+		<result property="updatedAt" column="UPDATED_AT" />
+		<result property="deletedAt" column="DELETED_AT" />
 	</resultMap>
 	
 	<select id="selectUsersList" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
@@ -20,13 +23,14 @@
 	<select id="insertUser" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
 	/* User_SQL.insertUser */
 	INSERT INTO public.users (
-	USER_NAME, EMAIL, PW, BIRTH_DATE, SALT
+	USER_NAME, EMAIL, PW, BIRTH_DATE, SALT, CREATED_AT
 	) VALUES (
 	<![CDATA[#{userName},]]>
 	<![CDATA[#{email},]]>
 	<![CDATA[#{pw},]]>
 	<![CDATA[#{birthDate},]]>
-	<![CDATA[#{salt}]]>
+	<![CDATA[#{salt},]]>
+	<![CDATA[now()]]>
 	)
 	</select>
 	
@@ -36,6 +40,14 @@
 	FROM public.users
 	WHERE EMAIL = 
 	<![CDATA[#{email}]]>
+	</select>
+	
+	<select id="nameCheck" parameterType="String" resultType="int">
+	/* User_SQL."nameCheck" */
+	SELECT COUNT(*)
+	FROM public.users
+	WHERE USER_NAME = 
+	<![CDATA[#{nameForPw}]]>
 	</select>
 	
 	<select id="loginCheck" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
@@ -51,9 +63,10 @@
 	<select id="updatePassword" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
 	/* User_SQL.updatePassword */
 	UPDATE public.users
-	SET (PW, SALT) = (
+	SET (PW, SALT, UPDATED_AT) = (
 	<![CDATA[#{pw},]]>
-	<![CDATA[#{salt}]]>
+	<![CDATA[#{salt},]]>
+	<![CDATA[now()]]>
 	)
 	WHERE EMAIL =
 	<![CDATA[#{emailForPw}]]>
