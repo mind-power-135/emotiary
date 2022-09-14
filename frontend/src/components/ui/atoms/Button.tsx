@@ -5,6 +5,7 @@ interface Props {
   children?: React.ReactNode;
   color?: string;
   theme: ThemeType;
+  setButtonOnClickEvent?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 type ThemeType = 'default' | 'dark';
@@ -22,9 +23,13 @@ const StyleButton = styled.button<{ theme: string }>`
 `;
 
 const Button: React.FC<Props> = (props: Props) => {
-  const { children, theme } = props;
+  const { children, theme, setButtonOnClickEvent } = props;
 
-  return <StyleButton theme={theme}>{children}</StyleButton>;
+  return (
+    <StyleButton theme={theme} onClick={setButtonOnClickEvent}>
+      {children}
+    </StyleButton>
+  );
 };
 
 export default Button;
