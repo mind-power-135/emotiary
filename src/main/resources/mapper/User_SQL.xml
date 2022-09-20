@@ -73,6 +73,28 @@
 	AND USER_NAME =
 	<![CDATA[#{nameForPw}]]>
 	</select>
+	
+	<resultMap id="schoolVo" type="java.util.Map">
+		<result property="id" column="ID" />
+		<result property="schoolName" column="SCHOOL_NAME" />
+		<result property="schoolType" column="SCH_TYPE" />
+		<result property="region" column="REGION" />
+		<result property="address" column="ADDRESS" />
+		<result property="createdAt" column="CREATED_AT" />
+		<result property="updatedAt" column="UPDATED_AT" />
+		<result property="deletedAt" column="DELETED_AT" />
+	</resultMap>
 
+	<select id="insertSchool" parameterType="hashmap" resultType="hashmap" resultMap="userVo">
+	/* User_SQL.insertSchool */
+	INSERT INTO public.schools (SCHOOL_NAME, SCH_TYPE, REGION, ADDRESS, CREATED_AT)
+	VALUES (
+	<![CDATA[#{schoolName},]]>
+	<![CDATA[#{schoolType}::shcool_type,]]>
+	<![CDATA[#{region},]]>
+	<![CDATA[#{address},]]>
+	<![CDATA[now()]]>
+	)
+	</select>
 
 </mapper>

@@ -72,6 +72,19 @@ public class UserController {
        
 	}
 	
+	// 일반 회원가입 시 학교정보 저장
+	@PostMapping("/addSchool")
+	public String addSchool(@RequestBody Map<String, Object> paramMap) throws Exception {
+		
+		String schoolType = paramMap.get("schoolType").toString();
+		paramMap.put("schoolType", schoolType);
+		
+		userService.addSchool(paramMap);
+		
+		return "School Info Save!";
+		
+	}
+	
 	// 이메일 인증 (confirm email authKey) // emailVerify
 	@ResponseBody
 	@GetMapping("/emailVerify")

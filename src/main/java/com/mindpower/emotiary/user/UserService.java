@@ -42,4 +42,8 @@ public class UserService {
 		return userDao.updatePassword(vo);
 	}
 	
+	// 학교 정보
+	public Map<String, Object> addSchool(Map<String, Object> vo) throws Exception {
+		return userDao.insertSchool(vo);
+	}
 }

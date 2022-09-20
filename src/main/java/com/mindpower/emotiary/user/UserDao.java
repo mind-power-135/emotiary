@@ -42,5 +42,10 @@ public class UserDao extends CommonDao {
 	public Map<String, Object> updatePassword(Map<String, Object> paramMap) throws SQLException {
 		return sqlSession.selectOne(UserDao.class.getName() + ".updatePassword", paramMap);
 	}
+	
+	// 학교 정보
+	public Map<String, Object> insertSchool(Map<String, Object> paramMap) throws SQLException {
+		return sqlSession.selectOne(UserDao.class.getName() + ".insertSchool", paramMap);
+	}
 
 }
