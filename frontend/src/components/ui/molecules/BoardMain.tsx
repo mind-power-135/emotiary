@@ -14,11 +14,10 @@ const BoardMain = () => {
     <StyleBoardMain>
       {data.map(item => (
         <Card
-          cardtitle={item.title}
-          cardsummary={item.contents}
-          cardtag={''}
-          children={undefined}
-          cardimg={''}
+          cardTitle={item.title}
+          cardSummary={item.contents}
+          cardTag={''}
+          cardImg={''}
         />
       ))}
     </StyleBoardMain>

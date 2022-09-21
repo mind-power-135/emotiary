@@ -7,7 +7,7 @@ const CardDiv = styled.div<{ color?: string }>`
   border-radius: 10px;
   box-shadow: 10px 10px ${({ color }) => color};
   border: 1px solid ${({ color }) => color};
-  text-align : center;
+  text-align: center;
 `;
 
 const CardTitle = styled.div`
@@ -19,7 +19,7 @@ const CardTitle = styled.div`
 
 const CardSummary = styled.div`
   font-size: 16px;
-  padding-inline: 3em 3em;  
+  padding-inline: 3em 3em;
   line-height: 3rem;
 `;
 
@@ -39,11 +39,10 @@ interface Props {
   cardTitle: string;
   cardTag: string;
   cardSummary: string;
-  children: React.ReactNode;
   cardImg: string;
 }
 
-const Card: React.FC<Props> = (props) => {
+const Card: React.FC<Props> = props => {
   const { cardTitle, cardSummary, cardTag, cardImg } = props;
 
   return (
@@ -55,8 +54,6 @@ const Card: React.FC<Props> = (props) => {
       <CardTag>{cardTag}</CardTag>
     </CardDiv>
   );
-
-
 };
 
 Card.defaultProps = {
