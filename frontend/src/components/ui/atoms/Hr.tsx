@@ -13,7 +13,7 @@ export const StyleHr = styled.hr<{
   bgColor?: string;
 }>`
   height: ${({ height }) => (height ? height + 'vh' : '0vh')};
-  width: ${({ width }) => (width ? width + 'vh' : '100%')};
+  width: ${({ width }) => (width ? width + 'vw' : '100%')};
   border: 0;
   background-color: ${({ bgColor }) => (bgColor ? bgColor : '#000000')};
 `;
