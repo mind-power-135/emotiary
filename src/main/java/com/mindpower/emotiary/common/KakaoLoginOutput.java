@@ -2,7 +2,7 @@ package com.mindpower.emotiary.common;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true) // ¾øÀ¸¸é 500 ¿¡·¯ : UnrecognizedPropertyException: Unrecognized field "error"
+@JsonIgnoreProperties(ignoreUnknown = true) // ì—†ìœ¼ë©´ 500 ì—ëŸ¬ : UnrecognizedPropertyException: Unrecognized field "error"
 public class KakaoLoginOutput {
 
 	private String access_token;
