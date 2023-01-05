@@ -41,9 +41,9 @@ const NotificationItemWrap = styled.li`
   padding: 1rem;
 `;
 
-const Title = styled.div<{ theme: string }>`
+const Title = styled.div<{ isRead: boolean }>`
   font-weight: 700;
-  color: ${({ theme }) => (theme.isRead ? '#999' : '#000')};
+  color: ${({ isRead }) => (isRead ? '#999' : '#000')};
   text-overflow: ellipsis;
 `;
 
@@ -62,7 +62,7 @@ const NotificationItem: React.FC<Props> = (props: Props) => {
     <NotificationItemWrap onClick={setButtonOnClickEvent}>
       <Icon>{IconName}</Icon>
       <div>
-        <Title>{title}</Title>
+        <Title isRead={isRead}>{title}</Title>
         <TimeStr>{time}</TimeStr>
       </div>
     </NotificationItemWrap>
