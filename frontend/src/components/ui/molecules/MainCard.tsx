@@ -23,6 +23,7 @@ const CardDiv = styled.div<{ color: string }>`
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  background: #fff;
 `;
 
 const CardTitle = styled.div`
