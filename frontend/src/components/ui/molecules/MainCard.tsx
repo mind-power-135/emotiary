@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+/**
+ * 메인화면 감정 종류 카드
+ * ex> <MainCard cardImg={"sad.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
+ * */
+
 interface Props {
   cardTag: string;
   cardImg: string;
