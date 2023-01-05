@@ -34,7 +34,7 @@ const categoryIcon = {
   'cmtLike': <IoHeartOutline />,
 };
 
-const NotificationItemWrap = styled.div<{ theme: string }>`
+const NotificationItemWrap = styled.li`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -47,7 +47,7 @@ const Title = styled.div<{ theme: string }>`
   text-overflow: ellipsis;
 `;
 
-const TimeStr = styled.div<{ theme: string }>`
+const TimeStr = styled.div`
   text-align: start;
   margin-top: 1rem;
   color: #999;
@@ -56,14 +56,14 @@ const TimeStr = styled.div<{ theme: string }>`
 
 const NotificationItem: React.FC<Props> = (props: Props) => {
   const { category, title, contentType, isRead, time, setButtonOnClickEvent } = props;
-  const IconName = categoryIcon[props.category];
+  const IconName = categoryIcon[category];
 
   return (
     <NotificationItemWrap onClick={setButtonOnClickEvent}>
       <Icon>{IconName}</Icon>
       <div>
-        <Title>{props.title}</Title>
-        <TimeStr>{props.time}</TimeStr>
+        <Title>{title}</Title>
+        <TimeStr>{time}</TimeStr>
       </div>
     </NotificationItemWrap>
   );
