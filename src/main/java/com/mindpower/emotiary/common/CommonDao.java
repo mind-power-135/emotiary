@@ -5,7 +5,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 public class CommonDao {
 	
-	@Autowired(required=false) //Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [org.mybatis.spring.SqlSessionTemplate] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} ¿À·ù ¹æÁö
+	@Autowired(required=false) //Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No matching bean of type [org.mybatis.spring.SqlSessionTemplate] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	protected SqlSessionTemplate sqlSession;
 
 }

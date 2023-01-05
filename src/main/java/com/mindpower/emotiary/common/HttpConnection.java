@@ -25,7 +25,7 @@ public class HttpConnection {
 		return HttpConnection_Singieton.instance;
 	}
 	
-	//get¹æ½Ä rest È£Ãâ½Ã »ç¿ë
+	//getë°©ì‹ rest í˜¸ì¶œì‹œ ì‚¬ìš©
 	public StringBuffer HttpGetConnection(String apiURL) throws IOException {
 		StringBuffer response = new StringBuffer();
 
@@ -36,34 +36,34 @@ public class HttpConnection {
         return responseHttp(con);
 	}
 	
-	//post¹æ½Ä rest È£Ãâ½Ã »ç¿ë
+	//postë°©ì‹ rest í˜¸ì¶œì‹œ ì‚¬ìš©
 	public StringBuffer HttpPostConnection(String apiURL, Map<String, String> params) throws IOException {
 	      URL url = new URL(apiURL);
 	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
 	      con.setRequestMethod("POST");
 	      con.setDoOutput(true);
 	      
-	      //¸¸¾à¿¡ ÆÄ¶ó¸ŞÅÍ¿¡ Authorization°¡ ÀÖ´Ù¸é Çì´õ·Î Ãß°¡ ÈÄ params¿¡¼­ Á¦°Å
+	      //ë§Œì•½ì— íŒŒë¼ë©”í„°ì— Authorizationê°€ ìˆë‹¤ë©´ í—¤ë”ë¡œ ì¶”ê°€ í›„ paramsì—ì„œ ì œê±°
 	      if(params.get("Authorization") != null) {
 	    	  con.setRequestProperty("Authorization", params.get("Authorization"));
 	    	  params.remove("Authorization");
 	      }
 	      
 	      // post request
-	      // ÇØ´ç stringÀº UTF-8·Î encode ÈÄ MS949·Î Àç encode¸¦ ¼öÇàÇÑ °ª
+	      // í•´ë‹¹ stringì€ UTF-8ë¡œ encode í›„ MS949ë¡œ ì¬ encodeë¥¼ ìˆ˜í–‰í•œ ê°’
 	      BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
           StringBuilder sb = new StringBuilder();
           
           int amp = 0;
           for( String key : params.keySet() ){
-        	  //2¹øÂ° ÆÄ¶ó¸ŞÅÍºÎÅÍ´Â ±¸ºĞÀÚ &°¡ ÀÖ¾î¾ßÇÑ´Ù.
+        	  //2ë²ˆì§¸ íŒŒë¼ë©”í„°ë¶€í„°ëŠ” êµ¬ë¶„ì &ê°€ ìˆì–´ì•¼í•œë‹¤.
         	  if(amp >= 1) sb.append("&"); amp+=1; 
         	  
         	  sb.append(key+params.get(key));
         	     
           }
           
-          System.out.println("ÆÄ¶ó¸ŞÅÍ : " + sb.toString());
+          System.out.println("íŒŒë¼ë©”í„° : " + sb.toString());
           
           bw.write(sb.toString());
           bw.flush();
@@ -72,15 +72,15 @@ public class HttpConnection {
 	      return responseHttp(con);
 	}
 	
-	//¼­¹ö¿¡ ¿äÃ»ÇÏ´Â ¸Ş¼Òµå
+	//ì„œë²„ì— ìš”ì²­í•˜ëŠ” ë©”ì†Œë“œ
 	public StringBuffer responseHttp(HttpURLConnection con) throws IOException {
 		StringBuffer response = new StringBuffer();
 		
 	    int responseCode = con.getResponseCode();
 	    BufferedReader br;
-	    if(responseCode==200) { // Á¤»ó È£Ãâ
+	    if(responseCode==200) { // ì •ìƒ í˜¸ì¶œ
 	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	    } else {  // ¿¡·¯ ¹ß»ı
+	    } else {  // ì—ëŸ¬ ë°œìƒ
 	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	    }
 	      
@@ -93,7 +93,7 @@ public class HttpConnection {
 	    return response;
 	}
 	
-	//ÆÄ¶ó¸ŞÅÍ URL ÀÎÄÚµù
+	//íŒŒë¼ë©”í„° URL ì¸ì½”ë”©
 	public String URLencoder(String contents) throws UnsupportedEncodingException {
 		return URLEncoder.encode(URLEncoder.encode(contents, ENCODING), "MS949");
 	}

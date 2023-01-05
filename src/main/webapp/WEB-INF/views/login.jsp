@@ -86,6 +86,7 @@ function findPassword(){
 		dataType:'text',
 		data : JSON.stringify(userForPw),
 		contentType : "application/json; charset=UTF-8",
+		// async : false, // ajax 여러 개 하기 위해 비동기 처리
 		success : function(data) {
 			alert(data); // Controller의 return
 		},

@@ -22,9 +22,14 @@ public class UserService {
 		return userDao.insertUser(vo);
 	}
 	
-	// 회원가입
+	// 아이디(이메일) 중복체크
 	public int idCheck(String account) throws Exception {
 		return userDao.idCheck(account);
+	}
+	
+	// 이름 존재여부 체크
+	public int nameCheck(String account) throws Exception {
+		return userDao.nameCheck(account);
 	}
 	
 	// 로그인 
@@ -37,4 +42,8 @@ public class UserService {
 		return userDao.updatePassword(vo);
 	}
 	
+	// 학교 정보
+	public Map<String, Object> addSchool(Map<String, Object> vo) throws Exception {
+		return userDao.insertSchool(vo);
+	}
 }

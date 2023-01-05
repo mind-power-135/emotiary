@@ -28,6 +28,11 @@ public class UserDao extends CommonDao {
 		return sqlSession.selectOne(UserDao.class.getName() + ".idCheck", account);
 	}
 	
+	// 이름 존재여부 체크
+	public int nameCheck(String account) throws SQLException {
+		return sqlSession.selectOne(UserDao.class.getName() + ".nameCheck", account);
+	}
+	
 	// 로그인
 	public Map<String, Object> loginCheck(Map<String, Object> paramMap) throws SQLException {
 		return sqlSession.selectOne(UserDao.class.getName() + ".loginCheck", paramMap);
@@ -36,6 +41,11 @@ public class UserDao extends CommonDao {
 	// 비밀번호 찾기
 	public Map<String, Object> updatePassword(Map<String, Object> paramMap) throws SQLException {
 		return sqlSession.selectOne(UserDao.class.getName() + ".updatePassword", paramMap);
+	}
+	
+	// 학교 정보
+	public Map<String, Object> insertSchool(Map<String, Object> paramMap) throws SQLException {
+		return sqlSession.selectOne(UserDao.class.getName() + ".insertSchool", paramMap);
 	}
 
 }

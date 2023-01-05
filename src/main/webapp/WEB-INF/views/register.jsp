@@ -146,7 +146,123 @@ function clean(){
 	$("#email").empty();
 }
 
+// 학교 검색
+function schoolSearch(){
+	
+	const searchSchoolInfo = {
+			gubun: $("#schoolGubun").val(),
+			name: $("#schoolName").val(),
+			region: $("#schoolRegion").val(),
+			page: 1,
+			pageSize: 15
+		}
+	
+	// console.log(searchSchoolInfo);
+	
+    $.ajax({
+    	dataType: 'json',
+   		// contentType : "text/plain; charset=UTF-8", // 이렇게 하면 415 에러
+   		contentType : "application/json; charset=UTF-8",
+		url: "./school/list.json",     
+		type: "post",    
+		data : JSON.stringify(searchSchoolInfo),
+		success: function (data) {
+			$("#school-grid").empty();
+			$("#school-grid-total-count").empty();
+			$("#school-grid-total-count").append("총 "+data.totalCount+"개의 학교를 찾았어요!");			
+			
+			$.each(data.items, function(index, item) {
+				// console.log(item);
+				$("#school-grid").append(
+					"<label>" +
+					"<input type='radio' name='schoolRadio' value='"+item.name+'/'+item.region+'/'+item.address+"'/>" +
+					item.name + "(" + item.address + ")" +
+					"</label>" +
+					"<br/>"
+				);
+			});
+			
+		},
+ 		error :function(request,status,error){
+ 			  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+   	});
+}
+
+// 학교 등록
+function schooleSubmit(){
+	
+	const schoolRadioValue = $('input[name=schoolRadio]:checked').val();
+	const arr = schoolRadioValue.split("/");
+	var schoolName = arr[0];
+	var region = arr[1];
+	var address = arr[2];
+	var schoolType = "";
+	
+	//console.log(schoolName);
+	
+	if (schoolRadioValue.includes("초등학교")==true) {
+		schoolType = "elementary";
+	} else if (schoolRadioValue.includes("중학교")==true) {
+		schoolType = "middle";
+	} else if (schoolRadioValue.includes("고등학교")==true) {
+		schoolType = "high";
+	} else {
+		schoolType = null;
+	}
+	
+	const registerSchoolInfo = {
+			
+		schoolName: schoolName,
+		region: region,
+		address: address,
+		schoolType: schoolType
+	}
+	console.log(registerSchoolInfo);
+	
+	$.ajax({
+		type : 'post',
+		url : "/emotiary/addSchool",
+		data : JSON.stringify(registerSchoolInfo),
+		dataType: 'text',
+   		contentType : "application/json; charset=UTF-8",
+		success : function (data) {
+			// console.log("data : " +  data);
+			$("#school").val(schoolName);
+			alert('학교 정보 등록 완료!')
+		},
+		error :function(request,status,error){
+			  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+      	}
+	});
+}
+
 </script>
+<style>
+.modal .window {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modalBox {
+  position: absolute;
+  background-color: #fff;
+  width: 400px;
+  height: 200px;
+  padding: 15px;
+}
+
+.modalBox button {
+  display: block;
+  width: 80px;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -168,8 +284,77 @@ function clean(){
       <label for="name">이름</label>
       <input type="text" id="name" name="name" placeholder="이름을 입력하세요"/>
       <br/>
+      <label for="school">학교명</label>
+      <input type="text" id="school" name="school" placeholder="학교를 검색하세요"/>
+      <br/>
 	</div>
 	<input type="button" id="submit" value="등록" onclick="javascript:join()"/>
+	
+	<br/>
+	<br/>
+	<br/>
+	<button class="openBtn">학교찾기 모달창 open</button>
+	
+	<!-- 학교검색 커리어넷 Open API 모달 -->
+	<div class="modal hidden">
+		<div class="window">
+			<div class="modalBox">
+				<div class="form-horizontal" id="search-block">
+					<div class="margin-bottom-5">
+				    <select class="form-control form-group-margin" id="schoolGubun" placeholder="구분">
+				        <option value="elem_list">초등학교</option>
+				        <option value="midd_list">중학교</option>
+				        <option value="high_list">고등학교</option>
+				       </select>  
+				    </div>
+				    <div class="margin-bottom-5">
+						<select class="form-control form-group-margin" id="schoolRegion" placeholder="지역">
+					        <option value="">전체</option>
+					        <option value="100260">서울특별시</option>
+					        <option value="100267">부산광역시</option>
+					        <option value="100269">인천광역시</option>
+					        <option value="100271">대전광역시</option>
+					        <option value="100272">대구광역시</option>
+					        <option value="100273">울산광역시</option>
+					        <option value="100275">광주광역시</option>
+					        <option value="100276">경기도</option>
+					        <option value="100278">강원도</option>
+					        <option value="100280">충청북도</option>
+					        <option value="100281">충청남도</option>
+					        <option value="100282">전라북도</option>
+					        <option value="100283">전라남도</option>
+					        <option value="100285">경상북도</option>
+					        <option value="100291">경상남도</option>
+					        <option value="100292">제주도</option>
+					       </select>              
+					</div>
+					<div class="margin-bottom-5">
+						<input class="form-control" id="schoolName" placeholder="학교이름" type="text">
+				    </div>
+					<div class="margin-bottom-5">
+					<input type="button" id="schoolSearch" value="학교 검색" onclick="javascript:schoolSearch()"/>
+					<input type="button" id="schoolSubmit" value="학교 등록" onclick="javascript:schooleSubmit()"/>
+					</div>
+				</div>
+				<div id="school-grid-total-count"></div>
+				<div id="school-grid" style="width:2000px;"></div>
+				<button class="closeBtn">닫기</button>
+			</div>
+		</div>
+	</div>
 </div> <!-- /container -->
 </body>
+<script>
+  const open = () => {
+    document.querySelector(".modal").classList.remove("hidden");
+  }
+
+  const close = () => {
+    document.querySelector(".modal").classList.add("hidden");
+  }
+
+  document.querySelector(".openBtn").addEventListener("click", open);
+  document.querySelector(".closeBtn").addEventListener("click", close);
+
+</script>
 </html>
