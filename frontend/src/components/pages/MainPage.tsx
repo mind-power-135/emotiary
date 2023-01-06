@@ -18,7 +18,7 @@ const MainWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10rem;
+  gap: 5rem;
   background-image: url(${glitter});
 `;
 
@@ -27,6 +27,18 @@ const MainPage: React.FC<any> = () => {
     <Main color={"#aabbcc"}>
       <MainWrap>
         <Header/>
+        <div>
+          <div style={{
+            fontSize: '3rem',
+            fontWeight: 'bold',
+            color: '#555'
+          }}>2022.00.00 마지막 감정</div>
+          <div style={{
+            marginTop: '2rem',
+            fontSize: '4rem',
+            fontWeight: 'bold',
+          }}>‘기쁨’</div>
+        </div>
         <MainCardSection/>
       </MainWrap>
     </Main>
