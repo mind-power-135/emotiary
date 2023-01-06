@@ -1,8 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import Card from './Card';
 
-const CardDiv = styled.div<{ color?: string }>`
+/**
+ * 메인화면 감정 종류 카드
+ * ex> <MainCard cardImg={"sad.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
+ * */
+
+interface Props {
+  cardTag: string;
+  cardImg: string;
+  cardColor: string;
+}
+
+const CardDiv = styled.div<{ color: string }>`
   width: 25rem;
   height: 25rem;
   border: 1px solid ${({ color }) => color};
@@ -13,6 +23,7 @@ const CardDiv = styled.div<{ color?: string }>`
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  background: #fff;
 `;
 
 const CardTitle = styled.div`
@@ -25,16 +36,11 @@ const CardImg = styled.img`
   height: 15rem;
 `;
 
-interface Props {
-  cardTag: string;
-  cardImg: string;
-}
-
 const MainCard: React.FC<Props> = (props) => {
-  const { cardTag, cardImg } = props;
+  const { cardTag, cardImg, cardColor } = props;
 
   return (
-    <CardDiv>
+    <CardDiv color={cardColor}>
       <CardTitle>{cardTag}</CardTitle>
       <CardImg src={cardImg}></CardImg>
     </CardDiv>
@@ -44,6 +50,7 @@ const MainCard: React.FC<Props> = (props) => {
 MainCard.defaultProps = {
   cardTag: '슬픔',
   cardImg: 'https://imgur.com/3M8MDMi.png',
+  cardColor: 'red',
 };
 
 export default MainCard;

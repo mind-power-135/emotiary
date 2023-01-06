@@ -9,6 +9,7 @@ interface Props {
 const StyleHeader = styled.header`
   display: flex;
   flex-direction: column;
+  width: 100vw;
 `;
 
 const Header: React.FC<Props> = (props: Props) => {
