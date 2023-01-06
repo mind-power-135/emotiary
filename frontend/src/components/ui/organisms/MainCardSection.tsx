@@ -102,22 +102,58 @@ const VerBox = styled.div`
   &:nth-child(2)> div:nth-child(4):hover{transform: translate(-50%, 0) rotate(20deg) scale(1.1) !important;}
 `;
 
+// todo : 추후 restApi로 리스트 받아오기
+const emotions = [{
+  id: 1,
+  name: "슬픔1",
+  color: "#aabbcc"
+},{
+  id: 1,
+  name: "슬픔2",
+  color: "#aabbcc"
+},{
+  id: 1,
+  name: "슬픔3",
+  color: "#aabbcc"
+},{
+  id: 1,
+  name: "슬픔4",
+  color: "#aabbcc"
+},{
+  id: 1,
+  name: "슬픔5",
+  color: "#aabbcc"
+},{
+  id: 1,
+  name: "슬픔6",
+  color: "#aabbcc"
+},{
+  id: 1,
+  name: "슬픔7",
+  color: "#aabbcc"
+},{
+  id: 1,
+  name: "슬픔8",
+  color: "#aabbcc"
+},{
+  id: 1,
+  name: "슬픔9",
+  color: "#aabbcc"
+}]
+
 const MainCardSection: React.FC<any> = () => {
+
   return (
     <MainCardWrap>
         <VerBox>
-          {/* todo: 실 데이터 뿌리기 자동화 */}
-          <MainCard cardImg={"https://imgur.com/3M8MDMi.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
-          <MainCard cardImg={"https://imgur.com/3M8MDMi.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
-          <MainCard cardImg={"https://imgur.com/3M8MDMi.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
-          <MainCard cardImg={"https://imgur.com/3M8MDMi.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
-          <MainCard cardImg={"https://imgur.com/3M8MDMi.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
+          {emotions.slice(0, 5).map((item, idx) => (
+              <MainCard cardImg={`/${item.id}.png`} cardTag={item.name} cardColor={item.color} />
+          ))}
         </VerBox>
         <VerBox>
-          <MainCard cardImg={"https://imgur.com/3M8MDMi.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
-          <MainCard cardImg={"https://imgur.com/3M8MDMi.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
-          <MainCard cardImg={"https://imgur.com/3M8MDMi.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
-          <MainCard cardImg={"https://imgur.com/3M8MDMi.png"} cardTag={"슬픔"} cardColor={"#aabbcc"}/>
+          {emotions.slice(5, 9).map((item, index) => (
+              <MainCard cardImg={`/${item.id}.png`} cardTag={item.name} cardColor={item.color} />
+          ))}
         </VerBox>
     </MainCardWrap>
   );
