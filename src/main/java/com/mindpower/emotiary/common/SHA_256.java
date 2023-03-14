@@ -1,6 +1,7 @@
 package com.mindpower.emotiary.common;
 
 import org.springframework.stereotype.Component;
+
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 

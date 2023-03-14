@@ -1,12 +1,13 @@
 package com.mindpower.emotiary.user;
 
-import java.util.List;
-import java.util.Map;
-
+import com.mindpower.emotiary.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("userService")
+import java.util.List;
+import java.util.Map;
+
+@Service
 public class UserService {
 
 	@Autowired
