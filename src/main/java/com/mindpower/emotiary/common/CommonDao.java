@@ -1,7 +1,7 @@
 package com.mindpower.emotiary.common;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class CommonDao {
 	

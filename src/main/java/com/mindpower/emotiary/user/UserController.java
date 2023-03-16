@@ -1,47 +1,25 @@
 package com.mindpower.emotiary.user;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.inject.Inject;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mindpower.emotiary.common.HttpConnection;
 import com.mindpower.emotiary.common.KakaoLoginOutput;
 import com.mindpower.emotiary.common.MailSendService;
 import com.mindpower.emotiary.common.SHA_256;
-import com.sun.mail.util.logging.MailHandler;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @RestController // @ResponseBody 안 써도 됨
-//@Controller
 public class UserController {
 	
 	@Autowired
@@ -50,13 +28,13 @@ public class UserController {
 	@Autowired
 	private MailSendService mailService;
 	
-	// 회원가입 페이지
-	// @GetMapping("/register")
-	@RequestMapping(value = "/register", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView register() throws Exception {
-		return new ModelAndView("/register");
-	}
-	
+//	// 회원가입 페이지
+//	// @GetMapping("/register")
+//	@RequestMapping(value = "/register", method = {RequestMethod.GET, RequestMethod.POST})
+//	public ModelAndView register() throws Exception {
+//		return new ModelAndView("/register");
+//	}
+
 	// 일반 회원가입
 	@PostMapping("/addUser")
 	public String addUser(@RequestBody Map<String, Object> paramMap) throws Exception {
@@ -117,13 +95,13 @@ public class UserController {
 		}
 	}
 	
-	// 로그인 페이지
-	HttpConnection conn = HttpConnection.getInstance();
-	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView login() throws Exception {
-		
-		return new ModelAndView("/login");
-	}
+//	// 로그인 페이지
+//	HttpConnection conn = HttpConnection.getInstance();
+//	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
+//	public ModelAndView login() throws Exception {
+//		
+//		return new ModelAndView("/login");
+//	}
 	
 	
 	// 일반(=이메일) 로그인
@@ -174,7 +152,8 @@ public class UserController {
 		map.put("client_id", "=1aecad2ec9281b4fa38d54505765097b"); //카카오 앱에 있는 REST KEY
 		map.put("redirect_uri", "=http://localhost:8080/emotiary/kakaoLoginSuccess"); //카카오 앱에 등록한 redirect URL
 		map.put("code", "="+code);
-		
+
+		HttpConnection conn = HttpConnection.getInstance();
 		String out = conn.HttpPostConnection("https://kauth.kakao.com/oauth/token", map).toString();
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -187,13 +166,14 @@ public class UserController {
 	}
 	
 	// 카카오 로그아웃
-	@RequestMapping(value="/kakaoLogout")
+	@PostMapping(value="/kakaoLogout")
 	public String access(HttpSession session) throws IOException {
 		
 		String access_token = (String)session.getAttribute("access_token");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("Authorization", "Bearer "+ access_token);
-		
+
+		HttpConnection conn = HttpConnection.getInstance();
 		String result = conn.HttpPostConnection("https://kapi.kakao.com/v1/user/logout", map).toString();
 		System.out.println(result);
 		
