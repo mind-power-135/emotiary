@@ -1,6 +1,5 @@
 package com.mindpower.emotiary.user;
 
-import com.mindpower.emotiary.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

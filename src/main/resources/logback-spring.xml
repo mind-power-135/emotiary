@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 60초마다 설정 파일의 변경을 확인 하여 변경시 갱신 -->
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-5level %d{yy-MM-dd HH:mm:ss} [%thread] [%logger:%line] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- root레벨 설정 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- 특정패키지 로깅레벨 설정 -->
+    <logger name="org.apache.ibatis" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="org.springframework" level="info" />
+    <logger name="org.mybatis.spring" level="info" />
+    <logger name="com.zaxxer" level="info" />
+
+    <logger name="com.mindpower.emotiary.interceptor.MybatisLogInterceptor" level="DEBUG" />
+
+</configuration>
