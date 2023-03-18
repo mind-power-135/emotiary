@@ -10,7 +10,7 @@
     </appender>
 
     <!-- root레벨 설정 -->
-    <root level="${log.level}">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
 
@@ -23,6 +23,6 @@
     <logger name="org.mybatis.spring" level="info" />
     <logger name="com.zaxxer" level="info" />
 
-    <logger name="com.mindpower.emotiary.mapper" level="DEBUG" />
+    <logger name="com.mindpower.emotiary.interceptor.MybatisLogInterceptor" level="DEBUG" />
 
 </configuration>

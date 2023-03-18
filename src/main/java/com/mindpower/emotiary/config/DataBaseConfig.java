@@ -1,5 +1,6 @@
 package com.mindpower.emotiary.config;
 
+import com.mindpower.emotiary.interceptor.MybatisLogInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -41,6 +42,7 @@ public class DataBaseConfig {
         configuration.setJdbcTypeForNull(JdbcType.NULL);
         configuration.setCallSettersOnNulls(true);
         configuration.setUseGeneratedKeys(true);
+        configuration.addInterceptor(new MybatisLogInterceptor());
 
         sqlSessionFactoryBean.setConfiguration(configuration);
         sqlSessionFactoryBean.setDataSource(dataSource);
