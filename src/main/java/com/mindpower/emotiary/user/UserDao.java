@@ -1,4 +1,4 @@
-package com.mindpower.emotiary.mapper;
+package com.mindpower.emotiary.user;
 
 import com.mindpower.emotiary.common.CommonDao;
 import org.springframework.stereotype.Repository;
